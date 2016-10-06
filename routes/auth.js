@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const knex = require('../knex')
+const knex = require('../db/knex')
 const bcrypt = require('bcrypt')
 const passport = require('passport')
 
@@ -14,19 +14,16 @@ router.get('/login', function(req, res) {
 })
 
 router.get('/signup', function(req, res) {
-  if (req.isAuthenticated()) {
-    res.redirect('/secret')
-    return
-  } else {
-    res.render('signup')
-  }
+  if (req.isAuthenticated()) res.redirect('/secret')
+  res.render('signup')
 })
 
-router.post('/login', function(req, _res) {
+router.post('/login', function(req, res) {
   passport.authenticate('local'), {
     successRedirect: '/secret',
     failureRedirect: '/login',
     failureFlash: true }
+    res.end()
 })
 
 router.post('/signup', function (req, res) {

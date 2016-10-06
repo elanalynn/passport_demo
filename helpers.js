@@ -1,8 +1,7 @@
 var jwt = require('jsonwebtoken')
 
 module.exports = {
-
-  createToken: function(user, accessToken) {
+  createToken(user, accessToken) {
     return new Promise(function(resolve, reject){
       // if (err) reject(err)
       delete user.password
